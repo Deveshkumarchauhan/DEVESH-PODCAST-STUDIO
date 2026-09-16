@@ -2,18 +2,42 @@ services:
   - type: web
     name: devesh-podcast-studio-api
     runtime: node
+    plan: free
     rootDir: backend
     buildCommand: npm ci && npm run build
     startCommand: npm run start
     healthCheckPath: /api/health
+    buildFilter:
+      paths:
+        - backend/**
+        - render.yaml
     envVars:
       - key: NODE_VERSION
-        value: 22
+        value: "22"
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: CLIENT_URL
-        sync: false
+        value: https://devesh-podcast-studio.onrender.com
       - key: STUN_SERVER
         value: stun:stun.l.google.com:19302
+
+  - type: web
+    name: devesh-podcast-studio
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    buildFilter:
+      paths:
+        - frontend/**
+        - render.yaml
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: VITE_API_URL
+        value: https://devesh-podcast-studio-api.onrender.com
+      - key: VITE_SOCKET_URL
+        value: https://devesh-podcast-studio-api.onrender.com

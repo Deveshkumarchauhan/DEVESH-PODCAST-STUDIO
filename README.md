@@ -11,6 +11,10 @@ A real browser-based multi-camera podcast MVP: a director creates an authenticat
 
 For Docker: `docker compose up --build`. The director is at port 5173 and API at port 9090.
 
+### Render deployment
+
+The `mongodb` hostname is available only inside the Docker Compose network. Do **not** use `mongodb://mongodb:27017/...` in Render. In the existing Render web service's **Environment** tab, replace `MONGODB_URI` with a MongoDB Atlas `mongodb+srv://` URI, save it, then use **Manual Deploy → Clear build cache & deploy**. The API cannot start until Atlas allows the connection. If the service was created manually rather than from `render.yaml`, its service-level environment variables take precedence; update that existing service directly.
+
 ## Recording and export
 
 The director sends real `recording:start` / `recording:stop` events. Each mobile browser records its actual camera/microphone stream using `MediaRecorder` and downloads its WebM when stopped. The API includes authenticated recording upload storage for director-side ingestion and exposes static files from `/uploads`. The browser cannot silently write a phone’s recording to the director disk: user interaction/download or a mobile upload token is required by browser security; the UI does not claim frame-perfect synchronization.

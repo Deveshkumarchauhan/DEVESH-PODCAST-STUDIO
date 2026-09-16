@@ -1,0 +1,2 @@
+import { describe,it,expect } from 'vitest'; import jwt from 'jsonwebtoken';
+describe('studio security primitives',()=>{it('creates a verifiable user token',()=>{const token=jwt.sign({sub:'user-1'},'test');expect((jwt.verify(token,'test') as {sub:string}).sub).toBe('user-1')});it('pairing codes are six digits',()=>{const code=String(Math.floor(100000+Math.random()*900000));expect(code).toMatch(/^\d{6}$/)})});

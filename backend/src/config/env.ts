@@ -1,0 +1,2 @@
+import 'dotenv/config';
+export const env = { port: Number(process.env.PORT || 9090), mongo: process.env.MONGODB_URI || 'mongodb://localhost:27017/devesh_podcast', jwt: process.env.JWT_SECRET || 'development-only-change-me', client: process.env.CLIENT_URL || 'http://localhost:5173', stun: process.env.STUN_SERVER || 'stun:stun.l.google.com:19302', turn: process.env.TURN_SERVER, turnUser: process.env.TURN_USERNAME, turnPassword: process.env.TURN_PASSWORD };

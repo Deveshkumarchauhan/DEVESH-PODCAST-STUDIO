@@ -1,0 +1,3 @@
+import { Schema, model, Types } from 'mongoose';
+export interface IDevice { sessionId:Types.ObjectId; deviceName:string; deviceType:string; cameraIndex:number; socketId?:string; status:string; battery?:number; lastSeen:Date; pairingToken?:string }
+export const Device = model<IDevice>('Device', new Schema({ sessionId:{type:Schema.Types.ObjectId,ref:'PodcastSession',required:true}, deviceName:{type:String,required:true}, deviceType:{type:String,default:'mobile'}, cameraIndex:{type:Number,required:true,min:1,max:3}, socketId:String, status:{type:String,default:'paired'}, battery:Number, lastSeen:{type:Date,default:Date.now}, pairingToken:String }, {timestamps:true}));

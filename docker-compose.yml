@@ -1,0 +1,20 @@
+services:
+  mongodb:
+    image: mongo:7
+    volumes: [mongo_data:/data/db]
+  backend:
+    build: ./backend
+    environment:
+      PORT: 9090
+      MONGODB_URI: mongodb://mongodb:27017/devesh_podcast
+      JWT_SECRET: change-me-in-production
+      CLIENT_URL: http://localhost:5173
+    ports: ["9090:9090"]
+    depends_on: [mongodb]
+    volumes: [./backend/uploads:/app/uploads]
+  frontend:
+    build: ./frontend
+    ports: ["5173:5173"]
+    depends_on: [backend]
+volumes:
+  mongo_data:

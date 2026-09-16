@@ -1,0 +1,3 @@
+import { Schema, model, Types } from 'mongoose';
+export interface IPodcastSession { userId:Types.ObjectId; sessionName:string; status:string; pairingCode:string; pairingExpiresAt:Date; startedAt?:Date; endedAt?:Date; audioSource?:string; createdAt:Date }
+export const PodcastSession = model<IPodcastSession>('PodcastSession', new Schema({ userId:{type:Schema.Types.ObjectId,ref:'User',required:true}, sessionName:{type:String,required:true}, status:{type:String,enum:['created','recording','paused','complete'],default:'created'}, pairingCode:{type:String,required:true}, pairingExpiresAt:{type:Date,required:true}, startedAt:Date, endedAt:Date, audioSource:String }, {timestamps:{createdAt:true,updatedAt:false}}));

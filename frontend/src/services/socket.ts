@@ -1,1 +1,1 @@
-import {io} from 'socket.io-client'; const localSocket=`${location.protocol}//${location.hostname}:9090`; export const socket=io(import.meta.env.VITE_SOCKET_URL||localSocket,{autoConnect:false});
+import {io} from 'socket.io-client'; const localSocket=`${location.protocol}//${location.hostname}:9090`; const socketUrl=import.meta.env.VITE_SOCKET_URL||(import.meta.env.PROD?location.origin:localSocket); export const socket=io(socketUrl,{autoConnect:false});
